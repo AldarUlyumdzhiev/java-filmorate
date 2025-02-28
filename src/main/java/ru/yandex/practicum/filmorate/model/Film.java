@@ -18,9 +18,4 @@ public class Film {
     public long getDuration() {
         return duration.getSeconds();
     }
-
-    // Принимает секунды и преобразует в Duration
-    public void setDuration(long seconds) {
-        this.duration = Duration.ofSeconds(seconds);
-    }
 }
