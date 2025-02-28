@@ -13,4 +13,14 @@ public class Film {
     private String description;
     private LocalDate releaseDate;
     private Duration duration;
+
+    // Возвращает duration в секундах
+    public long getDuration() {
+        return duration.getSeconds();
+    }
+
+    // Принимает секунды и преобразует в Duration
+    public void setDuration(long seconds) {
+        this.duration = Duration.ofSeconds(seconds);
+    }
 }
