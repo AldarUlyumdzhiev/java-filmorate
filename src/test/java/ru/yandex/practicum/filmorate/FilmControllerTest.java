@@ -5,7 +5,6 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 
-import java.time.Duration;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +19,7 @@ class FilmControllerTest {
         film.setName("");  // Пустое название
         film.setDescription("Test Description");
         film.setReleaseDate(LocalDate.of(2000, 1, 1));
-        film.setDuration(Duration.ofMinutes(120));
+        film.setDuration(7200);
 
         ValidationException exception = assertThrows(
                 ValidationException.class,
@@ -37,7 +36,7 @@ class FilmControllerTest {
         String longDescription = "s".repeat(201);  // Описание превышает лимит в 200 символов
         film.setDescription(longDescription);
         film.setReleaseDate(LocalDate.of(2000, 1, 1));
-        film.setDuration(Duration.ofMinutes(120));
+        film.setDuration(7200);
 
         ValidationException exception = assertThrows(
                 ValidationException.class,
@@ -53,7 +52,7 @@ class FilmControllerTest {
         film.setName("Test Name");
         film.setDescription("Test Description");
         film.setReleaseDate(LocalDate.of(1800, 1, 1)); // Дата релиза до 28.12.1895
-        film.setDuration(Duration.ofMinutes(120));
+        film.setDuration(7200);
 
         ValidationException exception = assertThrows(
                 ValidationException.class,
@@ -69,7 +68,7 @@ class FilmControllerTest {
         film.setName("Test Name");
         film.setDescription("Test Description");
         film.setReleaseDate(LocalDate.of(2000, 1, 1));
-        film.setDuration(Duration.ofMinutes(0));  // Продолжительность = 0
+        film.setDuration(0);  // Продолжительность = 0
 
         ValidationException exception = assertThrows(
                 ValidationException.class,
