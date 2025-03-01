@@ -1,12 +1,26 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-/**
- * Film.
- */
-@Getter
-@Setter
+import java.time.Duration;
+import java.time.LocalDate;
+
+
+@Data
 public class Film {
+    private Long id;
+    private String name;
+    private String description;
+    private LocalDate releaseDate;
+    private Duration duration;
+
+    // Возвращает duration в секундах
+    public long getDuration() {
+        return duration.getSeconds();
+    }
+
+    // Принимает секунды и преобразует в Duration
+    public void setDuration(long seconds) {
+        this.duration = Duration.ofSeconds(seconds);
+    }
 }
