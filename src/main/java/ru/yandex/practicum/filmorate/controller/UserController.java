@@ -33,12 +33,12 @@ public class UserController {
     @PutMapping
     public User update(@RequestBody User newUser) {
         if (newUser.getId() == null) {
-            log.error("Попытка обновления пользователя без id");
-            throw new ConditionsNotMetException("id пользователя должен быть указан");
+            log.error("Попытка обновления пользователя с id = null");
+            throw new ConditionsNotMetException("id пользователя должен быть указан. Получено id = null");
         }
         if (!users.containsKey(newUser.getId())) {
             log.error("Попытка обновления несуществующего пользователя с id = {}", newUser.getId());
-            throw new NotFoundException("Пользователь с id = " + newUser.getId() + " не найден.");
+            throw new NotFoundException(String.format("Пользователь с id = %d не найден.", newUser.getId()));
         }
         validateUser(newUser);
         users.put(newUser.getId(), newUser);

@@ -34,12 +34,12 @@ public class FilmController {
     @PutMapping
     public Film update(@RequestBody Film newFilm) {
         if (newFilm.getId() == null) {
-            log.error("Попытка обновления фильма без id");
-            throw new ConditionsNotMetException("id фильма должен быть указан");
+            log.error("Попытка обновления фильма с id = null");
+            throw new ConditionsNotMetException("id фильма должен быть указан, получено id = null");
         }
         if (!films.containsKey(newFilm.getId())) {
             log.error("Попытка обновления несуществующего фильма с id = {}", newFilm.getId());
-            throw new NotFoundException("Фильм с id = " + newFilm.getId() + " не найден");
+            throw new NotFoundException(String.format("Фильм с id = %d не найден", newFilm.getId()));
         }
         validateFilm(newFilm);
         films.put(newFilm.getId(), newFilm);
