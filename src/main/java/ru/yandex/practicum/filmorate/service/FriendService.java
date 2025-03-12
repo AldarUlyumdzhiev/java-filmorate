@@ -54,7 +54,7 @@ public class FriendService {
         Set<Long> userFriends = usersFriendIds.get(id);
         userFriends.add(friendId);  // Добавляем второго юзера в друзья к первому юзеру
 
-        Set <Long> friendFriends = usersFriendIds.get(friendId);
+        Set<Long> friendFriends = usersFriendIds.get(friendId);
         friendFriends.add(id);  // Добавляем первого юзера в друзья ко второму юзеру
     }
 
