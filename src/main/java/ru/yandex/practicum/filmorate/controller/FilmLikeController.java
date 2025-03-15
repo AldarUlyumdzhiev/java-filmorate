@@ -12,19 +12,20 @@ import java.util.List;
 @RequestMapping("/films")
 public class FilmLikeController {
     private final FilmLikeService filmLikeService;
+    private static final String LIKE_PATH = "/{id}/like/{user-id}";
 
     @Autowired
     public FilmLikeController(FilmLikeService filmLikeService) {
         this.filmLikeService = filmLikeService;
     }
 
-    @PutMapping("/{id}/like/{userId}")
-    public void addLike(@PathVariable Long id, @PathVariable Long userId) {
+    @PutMapping(LIKE_PATH)
+    public void addLike(@PathVariable Long id, @PathVariable("user-id") Long userId) {
         filmLikeService.addLike(id, userId);
     }
 
-    @DeleteMapping("/{id}/like/{userId}")
-    public void removeLike(@PathVariable Long id, @PathVariable Long userId) {
+    @DeleteMapping(LIKE_PATH)
+    public void removeLike(@PathVariable Long id, @PathVariable("user-id") Long userId) {
         filmLikeService.removeLike(id, userId);
     }
 

@@ -11,6 +11,7 @@ import java.util.Collection;
 @RequestMapping("/users")
 public class FriendController {
     private final FriendService friendService;
+    private static final String FRIEND_PATH = "/{id}/friends/{friend-id}";
 
     @Autowired
     public FriendController(FriendService friendService) {
@@ -22,18 +23,18 @@ public class FriendController {
         return friendService.getFriends(id);
     }
 
-    @GetMapping("/{id}/friends/common/{otherId}")
-    public Collection<User> getCommonFriends(@PathVariable Long id, @PathVariable Long otherId) {
+    @GetMapping("/{id}/friends/common/{other-id}")
+    public Collection<User> getCommonFriends(@PathVariable Long id, @PathVariable("other-id") Long otherId) {
         return friendService.getCommonFriends(id, otherId);
     }
 
-    @PutMapping("/{id}/friends/{friendId}")
-    public void addFriend(@PathVariable Long id, @PathVariable Long friendId) {
+    @PutMapping(FRIEND_PATH)
+    public void addFriend(@PathVariable Long id, @PathVariable("friend-id") Long friendId) {
         friendService.addFriend(id, friendId);
     }
 
-    @DeleteMapping("/{id}/friends/{friendId}")
-    public void deleteFriend(@PathVariable Long id, @PathVariable Long friendId) {
+    @DeleteMapping(FRIEND_PATH)
+    public void deleteFriend(@PathVariable Long id, @PathVariable("friend-id") Long friendId) {
         friendService.deleteFriend(id, friendId);
     }
 }
