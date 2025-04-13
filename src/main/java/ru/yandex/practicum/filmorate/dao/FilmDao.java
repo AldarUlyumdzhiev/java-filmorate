@@ -50,7 +50,7 @@ public class FilmDao implements FilmStorage {
 
     @Override
     public Film create(Film film) {
-        MpaRating rating = findMpaOrThrow(film.getMpa().getId());
+        MpaRating rating = findMpaOrThrow(film.getMpaRating().getId());
 
         jdbc.update("""
                 INSERT INTO films (name, description, release_date, duration, mpa_rating_id)
@@ -66,7 +66,7 @@ public class FilmDao implements FilmStorage {
         film.setId(id);
 
         insertGenres(film);
-        film.setMpa(rating);
+        film.setMpaRating(rating);
 
         return film;
     }
@@ -76,7 +76,7 @@ public class FilmDao implements FilmStorage {
         getById(film.getId()).orElseThrow(
                 () -> new NotFoundException("Фильм id=" + film.getId() + " не найден"));
 
-        MpaRating rating = findMpaOrThrow(film.getMpa().getId());
+        MpaRating rating = findMpaOrThrow(film.getMpaRating().getId());
 
         jdbc.update("""
                 UPDATE films
@@ -92,7 +92,7 @@ public class FilmDao implements FilmStorage {
 
         jdbc.update("DELETE FROM film_genre WHERE film_id = ?", film.getId());
         insertGenres(film);
-        film.setMpa(rating);
+        film.setMpaRating(rating);
 
         return film;
     }
@@ -150,8 +150,8 @@ public class FilmDao implements FilmStorage {
 
     private void loadMpaRating(Film film) {
         String sql = "SELECT * FROM mpa_rating WHERE id = ?";
-        MpaRating rating = jdbc.queryForObject(sql, new MpaRatingMapper(), film.getMpa().getId());
-        film.setMpa(rating);
+        MpaRating rating = jdbc.queryForObject(sql, new MpaRatingMapper(), film.getMpaRating().getId());
+        film.setMpaRating(rating);
     }
 }
 

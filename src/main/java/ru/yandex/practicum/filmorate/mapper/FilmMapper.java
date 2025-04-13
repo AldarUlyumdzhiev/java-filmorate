@@ -19,7 +19,7 @@ public class FilmMapper implements RowMapper<Film> {
 
         MpaRating rating = new MpaRating();
         rating.setId(rs.getInt("mpa_rating_id"));
-        film.setMpa(rating);
+        film.setMpaRating(rating);
         return film;
     }
 }
