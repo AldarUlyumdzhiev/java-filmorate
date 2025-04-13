@@ -3,8 +3,8 @@ package ru.yandex.practicum.filmorate.dao;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.MpaRating;
@@ -32,7 +32,7 @@ class FilmDaoTest {
                 .name("test film")
                 .description("test description")
                 .releaseDate(LocalDate.of(2000, 1, 1))
-                .duration(Duration.ofMinutes(120))
+                .duration(Duration.ofMinutes(120L))
                 .mpaRating(rating)
                 .build();
 
@@ -41,10 +41,9 @@ class FilmDaoTest {
 
         assertThat(retrieved)
                 .isPresent()
-                .hasValueSatisfying(f ->
-                        assertThat(f)
-                                .hasFieldOrPropertyWithValue("name", "test film")
-                                .hasFieldOrPropertyWithValue("duration", 120)
+                .hasValueSatisfying(f -> assertThat(f)
+                        .hasFieldOrPropertyWithValue("name", "test film")
+                        .hasFieldOrPropertyWithValue("duration", 120L)
                 );
     }
 }

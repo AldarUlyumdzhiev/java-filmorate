@@ -27,10 +27,10 @@ public class Film {
     private MpaRating mpaRating;
 
     public long getDuration() {
-        return duration.getSeconds();
+        return duration.toMinutes();
     }
 
-    public void setDuration(long seconds) {
-        this.duration = Duration.ofSeconds(seconds);
+    public void setDuration(long minutes) {
+        this.duration = Duration.ofMinutes(minutes);
     }
 }

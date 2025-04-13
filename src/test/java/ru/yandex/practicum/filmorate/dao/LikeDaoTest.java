@@ -43,7 +43,7 @@ class LikeDaoTest {
                 .name("test film")
                 .description("desc")
                 .releaseDate(LocalDate.of(2000, 1, 1))
-                .duration(Duration.ofMinutes(120))
+                .duration(Duration.ofSeconds(120))
                 .mpaRating(rating)
                 .build();
         Long filmId = filmDao.create(film).getId();
