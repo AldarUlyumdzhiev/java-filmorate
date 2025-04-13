@@ -1,39 +1,42 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.service.FilmService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/films")
+@RequiredArgsConstructor
 public class FilmController {
-    private final InMemoryFilmStorage filmStorage;
 
-    @Autowired
-    public FilmController(InMemoryFilmStorage filmStorage) {
-        this.filmStorage = filmStorage;
-    }
+    private final FilmService filmService;
 
     @GetMapping
     public Collection<Film> getAll() {
-        return filmStorage.getAll();
+        return filmService.getAll();
     }
 
     @GetMapping("/{id}")
     public Film getById(@PathVariable Long id) {
-        return filmStorage.getById(id);
+        return filmService.getById(id);
+    }
+
+    @GetMapping("/popular")
+    public List<Film> getPopular(@RequestParam(defaultValue = "10") int count) {
+        return filmService.getPopularFilms(count);
     }
 
     @PostMapping
     public Film create(@RequestBody Film film) {
-        return filmStorage.create(film);
+        return filmService.create(film);
     }
 
     @PutMapping
     public Film update(@RequestBody Film newFilm) {
-        return filmStorage.update(newFilm);
+        return filmService.update(newFilm);
     }
 }

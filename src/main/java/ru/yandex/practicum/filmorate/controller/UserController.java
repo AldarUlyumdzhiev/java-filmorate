@@ -1,41 +1,36 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
+import ru.yandex.practicum.filmorate.service.UserService;
 
 import java.util.Collection;
 
-@Slf4j
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
-    private final InMemoryUserStorage userStorage;
 
-    @Autowired
-    public UserController(InMemoryUserStorage userStorage) {
-        this.userStorage = userStorage;
-    }
+    private final UserService userService;
 
     @GetMapping
     public Collection<User> getAll() {
-        return userStorage.getAll();
+        return userService.getAll();
     }
 
     @GetMapping("/{id}")
     public User getById(@PathVariable Long id) {
-        return userStorage.getById(id);
+        return userService.getById(id);
     }
 
     @PostMapping
     public User create(@RequestBody User user) {
-        return userStorage.create(user);
+        return userService.create(user);
     }
 
     @PutMapping
-    public User update(@RequestBody User newUser) {
-        return userStorage.update(newUser);
+    public User update(@RequestBody User user) {
+        return userService.update(user);
     }
 }
