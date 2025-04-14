@@ -17,31 +17,45 @@ public class FriendService {
 
     public void addFriend(Long userId, Long friendId) {
         userStorage.getById(userId)
-                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Пользователь с id=%d не найден", userId)
+                ));
         userStorage.getById(friendId)
-                .orElseThrow(() -> new NotFoundException("User " + friendId + " not found"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Друг с id=%d не найден", friendId)
+                ));
         friendDao.addFriend(userId, friendId);
     }
 
     public void removeFriend(Long userId, Long friendId) {
         userStorage.getById(userId)
-                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Пользователь с id=%d не найден", userId)
+                ));
         userStorage.getById(friendId)
-                .orElseThrow(() -> new NotFoundException("User " + friendId + " not found"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Друг с id=%d не найден", friendId)
+                ));
         friendDao.removeFriend(userId, friendId);
     }
 
     public List<User> getFriends(Long userId) {
         userStorage.getById(userId)
-                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Пользователь с id=%d не найден", userId)
+                ));
         return friendDao.getFriends(userId);
     }
 
     public List<User> getCommonFriends(Long userId, Long otherId) {
         userStorage.getById(userId)
-                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Пользователь с id=%d не найден", userId)
+                ));
         userStorage.getById(otherId)
-                .orElseThrow(() -> new NotFoundException("User " + otherId + " not found"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Пользователь с id=%d не найден", otherId)
+                ));
         return friendDao.getCommonFriends(userId, otherId);
     }
 }

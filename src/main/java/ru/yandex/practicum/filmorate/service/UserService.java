@@ -24,7 +24,9 @@ public class UserService {
 
     public User getById(Long id) {
         return userStorage.getById(id)
-                .orElseThrow(() -> new NotFoundException("Пользователь с id=" + id + " не найден"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Пользователь с id=%d не найден", id)
+                ));
     }
 
     public User create(User user) {
@@ -58,7 +60,7 @@ public class UserService {
             user.setName(user.getLogin());
         }
         if (user.getBirthday() != null && user.getBirthday().isAfter(LocalDate.now())) {
-            throw new ValidationException("Дата рождения не может быть в будущем");
+            throw new ValidationException("Введите дату рождения, которая уже наступила");
         }
     }
 }

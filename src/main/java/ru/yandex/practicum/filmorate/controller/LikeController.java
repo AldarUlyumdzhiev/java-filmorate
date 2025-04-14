@@ -8,16 +8,17 @@ import ru.yandex.practicum.filmorate.service.LikeService;
 @RequestMapping("/films")
 @RequiredArgsConstructor
 public class LikeController {
+    public static final String FILM_LIKE_PATH = "/{id}/like/{user-id}";
 
     private final LikeService likeService;
 
-    @PutMapping("/{id}/like/{userId}")
-    public void addLike(@PathVariable Long id, @PathVariable Long userId) {
+    @PutMapping(FILM_LIKE_PATH)
+    public void addLike(@PathVariable Long id, @PathVariable("user-id") Long userId) {
         likeService.addLike(id, userId);
     }
 
-    @DeleteMapping("/{id}/like/{userId}")
-    public void removeLike(@PathVariable Long id, @PathVariable Long userId) {
+    @DeleteMapping(FILM_LIKE_PATH)
+    public void removeLike(@PathVariable Long id, @PathVariable("user-id") Long userId) {
         likeService.removeLike(id, userId);
     }
 }

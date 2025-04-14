@@ -20,6 +20,8 @@ public class GenreService {
 
     public Genre getById(int id) {
         return genreDao.getById(id)
-                .orElseThrow(() -> new NotFoundException("Жанр с id=" + id + " не найден"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Жанр с id=%d не найден", id)
+                ));
     }
 }

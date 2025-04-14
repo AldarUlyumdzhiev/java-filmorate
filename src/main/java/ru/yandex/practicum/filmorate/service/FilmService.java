@@ -27,7 +27,9 @@ public class FilmService {
 
     public Film getById(Long id) {
         return filmStorage.getById(id)
-                .orElseThrow(() -> new NotFoundException("Фильм с id=" + id + " не найден"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Фильм с id=%d не найден", id)
+                ));
     }
 
     public Film create(Film film) {

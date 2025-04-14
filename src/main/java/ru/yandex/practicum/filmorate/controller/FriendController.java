@@ -11,26 +11,28 @@ import java.util.List;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class FriendController {
+    private static final String USER_FRIENDS_PATH = "/{id}/friends";
+    private static final String USER_FRIEND_PATH = USER_FRIENDS_PATH + "/{friend-id}";
 
     private final FriendService friendService;
 
-    @PutMapping("/{id}/friends/{friendId}")
-    public void addFriend(@PathVariable Long id, @PathVariable Long friendId) {
+    @PutMapping(USER_FRIEND_PATH)
+    public void addFriend(@PathVariable Long id, @PathVariable("friend-id") Long friendId) {
         friendService.addFriend(id, friendId);
     }
 
-    @DeleteMapping("/{id}/friends/{friendId}")
-    public void deleteFriend(@PathVariable Long id, @PathVariable Long friendId) {
+    @DeleteMapping(USER_FRIEND_PATH)
+    public void deleteFriend(@PathVariable Long id, @PathVariable("friend-id") Long friendId) {
         friendService.removeFriend(id, friendId);
     }
 
-    @GetMapping("/{id}/friends")
+    @GetMapping(USER_FRIENDS_PATH)
     public List<User> getFriends(@PathVariable Long id) {
         return friendService.getFriends(id);
     }
 
-    @GetMapping("/{id}/friends/common/{otherId}")
-    public List<User> getCommonFriends(@PathVariable Long id, @PathVariable Long otherId) {
+    @GetMapping(USER_FRIENDS_PATH + "/common/{other-id}")
+    public List<User> getCommonFriends(@PathVariable Long id, @PathVariable("other-id") Long otherId) {
         return friendService.getCommonFriends(id, otherId);
     }
 }

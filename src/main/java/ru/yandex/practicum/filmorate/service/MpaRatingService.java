@@ -19,6 +19,8 @@ public class MpaRatingService {
 
     public MpaRating getById(int id) {
         return mpaRatingDao.getById(id)
-                .orElseThrow(() -> new NotFoundException("Рейтинг с id=" + id + " не найден"));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Рейтинг с id=%d не найден", id)
+                ));
     }
 }
